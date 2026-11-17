@@ -1,0 +1,61 @@
+session_id,event_time,user_id,ip_address,city,country,latitude,longitude,user_agent,secure,http_only,same_site
+sess_0001,2026-03-01T08:04:30Z,user_002,49.207.180.25,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0001,2026-03-01T08:07:55Z,user_002,49.207.180.25,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0001,2026-03-01T08:11:00Z,user_002,49.207.180.25,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0002,2026-03-01T08:20:02Z,user_003,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0002,2026-03-01T08:24:38Z,user_003,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0002,2026-03-01T08:28:50Z,user_003,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0003,2026-03-01T08:40:43Z,user_004,115.112.45.67,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0003,2026-03-01T08:45:12Z,user_004,115.112.45.67,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0003,2026-03-01T08:50:32Z,user_004,115.112.45.67,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0004,2026-03-01T09:02:21Z,user_005,151.101.0.81,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0004,2026-03-01T09:06:31Z,user_005,151.101.0.81,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0004,2026-03-01T09:10:29Z,user_005,151.101.0.81,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0005,2026-03-01T09:23:50Z,user_006,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0005,2026-03-01T09:26:55Z,user_006,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0005,2026-03-01T09:32:12Z,user_006,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0006,2026-03-01T09:44:24Z,user_007,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0006,2026-03-01T09:48:23Z,user_007,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0006,2026-03-01T09:52:48Z,user_007,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Strict
+sess_0007,2026-03-01T10:00:07Z,user_008,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0007,2026-03-01T10:05:42Z,user_008,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0007,2026-03-01T10:09:19Z,user_008,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0008,2026-03-01T10:24:16Z,user_009,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0008,2026-03-01T10:28:36Z,user_009,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0008,2026-03-01T10:32:46Z,user_009,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0009,2026-03-01T10:41:37Z,user_010,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0009,2026-03-01T10:45:36Z,user_010,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0009,2026-03-01T10:50:08Z,user_010,82.165.198.5,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0010,2026-03-01T11:00:19Z,user_011,115.112.45.67,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0010,2026-03-01T11:04:34Z,user_011,115.112.45.67,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0010,2026-03-01T11:09:13Z,user_011,115.112.45.67,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0011,2026-03-01T11:21:13Z,user_012,157.48.12.34,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0011,2026-03-01T11:26:06Z,user_012,157.48.12.34,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0011,2026-03-01T11:30:32Z,user_012,157.48.12.34,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0012,2026-03-01T11:41:34Z,user_013,157.48.12.34,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0012,2026-03-01T11:44:57Z,user_013,157.48.12.34,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0012,2026-03-01T11:47:59Z,user_013,157.48.12.34,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36,true,true,Lax
+sess_0013,2026-03-01T12:01:38Z,user_014,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0013,2026-03-01T12:05:57Z,user_014,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0013,2026-03-01T12:09:24Z,user_014,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/120.0.0.0 Safari/537.36,true,true,Strict
+sess_0014,2026-03-01T12:22:03Z,user_015,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0014,2026-03-01T12:27:12Z,user_015,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0014,2026-03-01T12:31:48Z,user_015,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0015,2026-03-01T12:42:12Z,user_001,103.21.125.12,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0015,2026-03-01T12:47:01Z,user_001,103.21.125.12,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0015,2026-03-01T12:52:24Z,user_001,103.21.125.12,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0016,2026-03-01T13:02:02Z,user_002,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0016,2026-03-01T13:05:28Z,user_002,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0016,2026-03-01T13:09:32Z,user_002,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Strict
+sess_0017,2026-03-01T13:40:50Z,user_003,122.161.46.90,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,false,false,None
+sess_0017,2026-03-01T13:44:10Z,user_003,122.161.46.90,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,false,false,None
+sess_0017,2026-03-01T13:47:30Z,user_003,122.161.46.90,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,false,false,None
+sess_0018,2026-03-01T14:01:20Z,user_004,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0018,2026-03-01T14:04:50Z,user_004,103.21.124.50,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0018,2026-03-01T14:08:50Z,user_004,103.21.125.12,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0,true,true,Lax
+sess_0019,2026-03-01T14:22:00Z,user_005,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.1 Safari/605.1.15,true,true,Strict
+sess_0019,2026-03-01T14:22:05Z,user_005,103.21.125.12,Mumbai,India,19.0760,72.8777,Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.1 Safari/605.1.15,true,true,Strict
+sess_0019,2026-03-01T14:26:00Z,user_005,122.161.45.80,Delhi,India,28.6139,77.2090,Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.1 Safari/605.1.15,true,true,Strict
+sess_0020,2026-03-01T14:42:40Z,user_006,49.207.181.10,Chennai,India,13.0827,80.2707,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0020,2026-03-01T14:52:40Z,user_006,151.101.0.81,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax
+sess_0020,2026-03-01T15:02:40Z,user_006,151.101.0.81,London,United Kingdom,51.5074,-0.1278,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36,true,true,Lax

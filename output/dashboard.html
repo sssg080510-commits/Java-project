@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CookieTrace Dashboard</title>
+</head>
+<body style="background-color: #f4f6f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 28px; color: #212529;">
+  <div style="margin-bottom: 24px;">
+    <h1 style="margin: 0; color: #1a237e; font-size: 28px;">CookieTrace Dashboard</h1>
+    <p style="margin: 6px 0 0 0; color: #6c757d; font-size: 14px;">Session Threat Detection & Cookie Hygiene Monitoring</p>
+  </div>
+  <!-- Section A: Summary Cards -->
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 28px;">
+    <div style="flex: 1; min-width: 140px; background-color: #ffffff; padding: 16px; border-radius: 8px; border-left: 4px solid #1a237e; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+      <div style="font-size: 12px; color: #6c757d; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Total Sessions</div>
+      <div style="font-size: 22px; font-weight: bold; margin-top: 6px; color: #212529; word-break: break-all;">20</div>
+      <div style="font-size: 11px; color: #adb5bd; margin-top: 4px;">Analyzed web sessions</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; background-color: #ffffff; padding: 16px; border-radius: 8px; border-left: 4px solid #d32f2f; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+      <div style="font-size: 12px; color: #6c757d; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">HIGH Risk</div>
+      <div style="font-size: 22px; font-weight: bold; margin-top: 6px; color: #212529; word-break: break-all;">2</div>
+      <div style="font-size: 11px; color: #adb5bd; margin-top: 4px;">Critical threat score &gt;= 60</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; background-color: #ffffff; padding: 16px; border-radius: 8px; border-left: 4px solid #f57c00; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+      <div style="font-size: 12px; color: #6c757d; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">MEDIUM Risk</div>
+      <div style="font-size: 22px; font-weight: bold; margin-top: 6px; color: #212529; word-break: break-all;">2</div>
+      <div style="font-size: 11px; color: #adb5bd; margin-top: 4px;">Elevated threat score 30-59</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; background-color: #ffffff; padding: 16px; border-radius: 8px; border-left: 4px solid #2e7d32; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+      <div style="font-size: 12px; color: #6c757d; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">LOW Risk</div>
+      <div style="font-size: 22px; font-weight: bold; margin-top: 6px; color: #212529; word-break: break-all;">16</div>
+      <div style="font-size: 11px; color: #adb5bd; margin-top: 4px;">Normal score &lt; 30</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; background-color: #ffffff; padding: 16px; border-radius: 8px; border-left: 4px solid #c2185b; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+      <div style="font-size: 12px; color: #6c757d; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Weak Cookies</div>
+      <div style="font-size: 22px; font-weight: bold; margin-top: 6px; color: #212529; word-break: break-all;">1</div>
+      <div style="font-size: 11px; color: #adb5bd; margin-top: 4px;">Grades F, D, or C</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; background-color: #ffffff; padding: 16px; border-radius: 8px; border-left: 4px solid #455a64; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+      <div style="font-size: 12px; color: #6c757d; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Last Run Time</div>
+      <div style="font-size: 22px; font-weight: bold; margin-top: 6px; color: #212529; word-break: break-all;">2026-11-17T16:50:54.179184900Z</div>
+      <div style="font-size: 11px; color: #adb5bd; margin-top: 4px;">Most recent audit timestamp</div>
+    </div>
+  </div>
+  <!-- Section B: Sessions Table -->
+  <div style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 20px; margin-bottom: 28px;">
+    <h2 style="margin-top: 0; color: #1a237e; font-size: 18px; border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">All Sessions (Ranked by Risk Score)</h2>
+    <table style="border-collapse: collapse; width: 100%; font-size: 14px;">
+      <thead>
+        <tr style="background-color: #f8f9fa; text-align: left;">
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Session ID</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Score</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Level</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Cookie Grade</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Analyzers That Fired</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0019</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">100</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #ffebee; color: #c62828; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">HIGH</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">IpChangeAnalyzer; ConcurrentSessionAnalyzer; ImpossibleTravelAnalyzer; AnomalyAnalyzer</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0020</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">90</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #ffebee; color: #c62828; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">HIGH</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">IpChangeAnalyzer; ImpossibleTravelAnalyzer; AnomalyAnalyzer</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0018</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">35</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #fff3e0; color: #ef6c00; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">MEDIUM</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">IpChangeAnalyzer; UserAgentAnalyzer</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0017</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">30</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #fff3e0; color: #ef6c00; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">MEDIUM</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">F</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">CookieAttributeAnalyzer</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0001</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0002</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0003</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0004</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0005</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0006</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0007</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0008</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0009</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0010</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0011</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0012</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0013</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0014</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0015</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-weight: 600;">sess_0016</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">0</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">LOW</span></td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">A</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #495057;">None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Section C: Alert Details -->
+  <div style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 20px; margin-bottom: 28px;">
+    <h2 style="margin-top: 0; color: #1a237e; font-size: 18px; border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">Alert Details (Actionable Threats & Cookie Remediations)</h2>
+    <details style="margin-bottom: 14px; background-color: #fafbfc; border: 1px solid #e1e4e8; border-left: 4px solid #d32f2f; border-radius: 6px; padding: 12px;">
+      <summary style="font-weight: bold; cursor: pointer; color: #1a237e; font-size: 15px;">
+        Session: sess_0019 &bull; Score: 100/100 &bull; Level: HIGH &bull; Cookie Grade: A
+      </summary>
+      <div style="margin-top: 12px; font-size: 14px;">
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Security Alerts:</h4>
+        <ul style="margin: 4px 0 10px 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px;">
+            <strong>[IpChangeAnalyzer]</strong> (15 pts, MEDIUM): IP change detected: previous IP 103.21.125.12 (India) changed to new IP 122.161.45.80 (India). Note: IP changes can have innocent causes (mobile network, VPN).<br>
+            <em style="color: #495057;">Recommendation:</em> Verify with the user or require re-authentication.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>[ConcurrentSessionAnalyzer]</strong> (35 pts, HIGH): The same session appeared from two different IP addresses (122.161.45.80 and 103.21.125.12) within 5 seconds. One session cannot normally be used from two networks at nearly the same time, so the session ID may have been copied.<br>
+            <em style="color: #495057;">Recommendation:</em> Invalidate the session and force login.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>[ImpossibleTravelAnalyzer]</strong> (40 pts, HIGH): Impossible travel detected between Delhi and Mumbai: distance 1148.1 km traveled in 0.1 minutes, implying an impossible speed of 826628.3 km/h.<br>
+            <em style="color: #495057;">Recommendation:</em> Treat as likely stolen session and require re-authentication.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>[AnomalyAnalyzer]</strong> (21 pts, HIGH): Session behaved unusually compared with other sessions: distinctCities = 2 (typical about 1.1), distinctIps = 2 (typical about 1.2), minGapSeconds = 5 (typical about 238.5)<br>
+            <em style="color: #495057;">Recommendation:</em> Investigate manually; this is a statistical indicator and not proof.
+          </li>
+        </ul>
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Cookie Remediation Fixes:</h4>
+        <p style="color: #6a737d; margin: 4px 0 8px 16px;">No cookie configuration issues found.</p>
+      </div>
+    </details>
+    <details style="margin-bottom: 14px; background-color: #fafbfc; border: 1px solid #e1e4e8; border-left: 4px solid #d32f2f; border-radius: 6px; padding: 12px;">
+      <summary style="font-weight: bold; cursor: pointer; color: #1a237e; font-size: 15px;">
+        Session: sess_0020 &bull; Score: 90/100 &bull; Level: HIGH &bull; Cookie Grade: A
+      </summary>
+      <div style="margin-top: 12px; font-size: 14px;">
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Security Alerts:</h4>
+        <ul style="margin: 4px 0 10px 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px;">
+            <strong>[IpChangeAnalyzer]</strong> (25 pts, HIGH): IP change detected: previous IP 49.207.181.10 (India) changed to new IP 151.101.0.81 (United Kingdom). Note: IP changes can have innocent causes (mobile network, VPN).<br>
+            <em style="color: #495057;">Recommendation:</em> Verify with the user or require re-authentication.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>[ImpossibleTravelAnalyzer]</strong> (40 pts, HIGH): Impossible travel detected between Chennai and London: distance 8210.9 km traveled in 10.0 minutes, implying an impossible speed of 49265.1 km/h.<br>
+            <em style="color: #495057;">Recommendation:</em> Treat as likely stolen session and require re-authentication.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>[AnomalyAnalyzer]</strong> (25 pts, HIGH): Session behaved unusually compared with other sessions: maxDistanceKm = 8210.9 (typical about 467.9), maxGapSeconds = 600 (typical about 284.3), durationSeconds = 1200 (typical about 522.8)<br>
+            <em style="color: #495057;">Recommendation:</em> Investigate manually; this is a statistical indicator and not proof.
+          </li>
+        </ul>
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Cookie Remediation Fixes:</h4>
+        <p style="color: #6a737d; margin: 4px 0 8px 16px;">No cookie configuration issues found.</p>
+      </div>
+    </details>
+    <details style="margin-bottom: 14px; background-color: #fafbfc; border: 1px solid #e1e4e8; border-left: 4px solid #f57c00; border-radius: 6px; padding: 12px;">
+      <summary style="font-weight: bold; cursor: pointer; color: #1a237e; font-size: 15px;">
+        Session: sess_0018 &bull; Score: 35/100 &bull; Level: MEDIUM &bull; Cookie Grade: A
+      </summary>
+      <div style="margin-top: 12px; font-size: 14px;">
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Security Alerts:</h4>
+        <ul style="margin: 4px 0 10px 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px;">
+            <strong>[IpChangeAnalyzer]</strong> (15 pts, MEDIUM): IP change detected: previous IP 103.21.124.50 (India) changed to new IP 103.21.125.12 (India). Note: IP changes can have innocent causes (mobile network, VPN).<br>
+            <em style="color: #495057;">Recommendation:</em> Verify with the user or require re-authentication.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>[UserAgentAnalyzer]</strong> (20 pts, HIGH): The browser identity changed mid-session from 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36' to 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0', which may mean the cookie is being used from another device; can also be an innocent browser update.<br>
+            <em style="color: #495057;">Recommendation:</em> Re-authenticate the session.
+          </li>
+        </ul>
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Cookie Remediation Fixes:</h4>
+        <p style="color: #6a737d; margin: 4px 0 8px 16px;">No cookie configuration issues found.</p>
+      </div>
+    </details>
+    <details style="margin-bottom: 14px; background-color: #fafbfc; border: 1px solid #e1e4e8; border-left: 4px solid #f57c00; border-radius: 6px; padding: 12px;">
+      <summary style="font-weight: bold; cursor: pointer; color: #1a237e; font-size: 15px;">
+        Session: sess_0017 &bull; Score: 30/100 &bull; Level: MEDIUM &bull; Cookie Grade: F
+      </summary>
+      <div style="margin-top: 12px; font-size: 14px;">
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Security Alerts:</h4>
+        <ul style="margin: 4px 0 10px 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px;">
+            <strong>[CookieAttributeAnalyzer]</strong> (30 pts, HIGH): Cookie security vulnerability: Secure flag missing: cookie can be sent over unencrypted connections and sniffed; HttpOnly missing: JavaScript can read the cookie, so cross-site scripting could steal it; SameSite None: cookie is sent on cross-site requests, which helps cross-site request forgery<br>
+            <em style="color: #495057;">Recommendation:</em> Configure session cookies with: Secure=true, HttpOnly=true, SameSite=Strict or Lax
+          </li>
+        </ul>
+        <h4 style="margin: 10px 0 6px 0; color: #24292e;">Cookie Remediation Fixes:</h4>
+        <ul style="margin: 4px 0 8px 0; padding-left: 20px;">
+          <li style="margin-bottom: 4px;">Enable the Secure flag so the cookie only travels over HTTPS and cannot be sniffed.</li>
+          <li style="margin-bottom: 4px;">Enable the HttpOnly flag so JavaScript cannot read the cookie, which limits theft by cross-site scripting.</li>
+          <li style="margin-bottom: 4px;">Set SameSite to Strict or Lax so other sites cannot trigger requests with the cookie.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+  <!-- Section D: Run History -->
+  <div style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 20px; margin-bottom: 28px;">
+    <h2 style="margin-top: 0; color: #1a237e; font-size: 18px; border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">Run History (Audit Trail from SQLite)</h2>
+    <table style="border-collapse: collapse; width: 100%; font-size: 14px;">
+      <thead>
+        <tr style="background-color: #f8f9fa; text-align: left;">
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Run ID</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Run Time</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Dataset</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Sessions</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">LOW</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">MEDIUM</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">HIGH</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">5</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-size: 12px;">2026-11-17T16:50:54.179184900Z</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">sessions_dev.csv</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">20</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #2e7d32;">16</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #ef6c00;">2</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #c62828;">2</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">4</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-size: 12px;">2026-11-17T16:43:50.735449900Z</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">sessions_dev.csv</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">20</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #2e7d32;">16</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #ef6c00;">2</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #c62828;">2</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">3</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-size: 12px;">2026-11-17T16:10:25.510009Z</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">sessions_dev.csv</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">20</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #2e7d32;">16</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #ef6c00;">2</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #c62828;">2</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">2</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-size: 12px;">2026-11-17T16:05:06.911538100Z</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">sessions_dev.csv</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">20</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #2e7d32;">16</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #ef6c00;">2</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #c62828;">2</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">1</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace; font-size: 12px;">2026-11-17T16:04:52.861366400Z</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">sessions_dev.csv</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef;">20</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #2e7d32;">16</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #ef6c00;">2</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #c62828;">2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Section E: Live Simulation Timeline -->
+  <div style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 20px; margin-bottom: 28px;">
+    <h2 style="margin-top: 0; color: #1a237e; font-size: 18px; border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">Live Simulation Timeline (Escalation Stream)</h2>
+    <table style="border-collapse: collapse; width: 100%; font-size: 14px;">
+      <thead>
+        <tr style="background-color: #f8f9fa; text-align: left;">
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Event #</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Session</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Old Level</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">New Level</th>
+          <th style="padding: 10px 12px; border-bottom: 2px solid #dee2e6;">Score at Escalation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">49</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace;">sess_0017</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #6c757d;">LOW</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold; color: #ef6c00;">MEDIUM</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">30</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">54</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace;">sess_0018</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #6c757d;">LOW</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold; color: #ef6c00;">MEDIUM</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">35</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">56</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace;">sess_0019</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #6c757d;">LOW</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold; color: #c62828;">HIGH</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">90</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">59</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-family: monospace;">sess_0020</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #6c757d;">LOW</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold; color: #c62828;">HIGH</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #e9ecef; font-weight: bold;">65</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Section F: Footer -->
+  <footer style="margin-top: 32px; padding: 18px; text-align: center; color: #6c757d; font-size: 13px; border-top: 1px solid #dee2e6;">
+    Simulated data. Alerts are indicators for human investigation, not proof of compromise.
+  </footer>
+</body>
+</html>

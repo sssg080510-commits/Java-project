@@ -1,0 +1,299 @@
+{
+  "generatedAt": "2026-11-17T15:56:51.529098Z",
+  "sessionCount": 20,
+  "sessions": [
+    {
+      "sessionId": "sess_0019",
+      "rawPoints": 111,
+      "totalPoints": 100,
+      "level": "HIGH",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+        {
+          "analyzer": "IpChangeAnalyzer",
+          "points": 15,
+          "level": "MEDIUM",
+          "explanation": "IP change detected: previous IP 103.21.125.12 (India) changed to new IP 122.161.45.80 (India). Note: IP changes can have innocent causes (mobile network, VPN).",
+          "recommendation": "Verify with the user or require re-authentication."
+        },
+        {
+          "analyzer": "ConcurrentSessionAnalyzer",
+          "points": 35,
+          "level": "HIGH",
+          "explanation": "The same session appeared from two different IP addresses (122.161.45.80 and 103.21.125.12) within 5 seconds. One session cannot normally be used from two networks at nearly the same time, so the session ID may have been copied.",
+          "recommendation": "Invalidate the session and force login."
+        },
+        {
+          "analyzer": "ImpossibleTravelAnalyzer",
+          "points": 40,
+          "level": "HIGH",
+          "explanation": "Impossible travel detected between Delhi and Mumbai: distance 1148.1 km traveled in 0.1 minutes, implying an impossible speed of 826628.3 km/h.",
+          "recommendation": "Treat as likely stolen session and require re-authentication."
+        },
+        {
+          "analyzer": "AnomalyAnalyzer",
+          "points": 21,
+          "level": "HIGH",
+          "explanation": "Session behaved unusually compared with other sessions: distinctCities = 2 (typical about 1.1), distinctIps = 2 (typical about 1.2), minGapSeconds = 5 (typical about 238.5)",
+          "recommendation": "Investigate manually; this is a statistical indicator and not proof."
+        }
+      ]
+    },
+    {
+      "sessionId": "sess_0020",
+      "rawPoints": 90,
+      "totalPoints": 90,
+      "level": "HIGH",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+        {
+          "analyzer": "IpChangeAnalyzer",
+          "points": 25,
+          "level": "HIGH",
+          "explanation": "IP change detected: previous IP 49.207.181.10 (India) changed to new IP 151.101.0.81 (United Kingdom). Note: IP changes can have innocent causes (mobile network, VPN).",
+          "recommendation": "Verify with the user or require re-authentication."
+        },
+        {
+          "analyzer": "ImpossibleTravelAnalyzer",
+          "points": 40,
+          "level": "HIGH",
+          "explanation": "Impossible travel detected between Chennai and London: distance 8210.9 km traveled in 10.0 minutes, implying an impossible speed of 49265.1 km/h.",
+          "recommendation": "Treat as likely stolen session and require re-authentication."
+        },
+        {
+          "analyzer": "AnomalyAnalyzer",
+          "points": 25,
+          "level": "HIGH",
+          "explanation": "Session behaved unusually compared with other sessions: maxDistanceKm = 8210.9 (typical about 467.9), maxGapSeconds = 600 (typical about 284.3), durationSeconds = 1200 (typical about 522.8)",
+          "recommendation": "Investigate manually; this is a statistical indicator and not proof."
+        }
+      ]
+    },
+    {
+      "sessionId": "sess_0018",
+      "rawPoints": 35,
+      "totalPoints": 35,
+      "level": "MEDIUM",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+        {
+          "analyzer": "IpChangeAnalyzer",
+          "points": 15,
+          "level": "MEDIUM",
+          "explanation": "IP change detected: previous IP 103.21.124.50 (India) changed to new IP 103.21.125.12 (India). Note: IP changes can have innocent causes (mobile network, VPN).",
+          "recommendation": "Verify with the user or require re-authentication."
+        },
+        {
+          "analyzer": "UserAgentAnalyzer",
+          "points": 20,
+          "level": "HIGH",
+          "explanation": "The browser identity changed mid-session from 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36' to 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0', which may mean the cookie is being used from another device; can also be an innocent browser update.",
+          "recommendation": "Re-authenticate the session."
+        }
+      ]
+    },
+    {
+      "sessionId": "sess_0017",
+      "rawPoints": 30,
+      "totalPoints": 30,
+      "level": "MEDIUM",
+      "cookieGrade": "F",
+      "cookieFixes": [
+        "Enable the Secure flag so the cookie only travels over HTTPS and cannot be sniffed.",
+        "Enable the HttpOnly flag so JavaScript cannot read the cookie, which limits theft by cross-site scripting.",
+        "Set SameSite to Strict or Lax so other sites cannot trigger requests with the cookie."
+      ],
+      "alerts": [
+        {
+          "analyzer": "CookieAttributeAnalyzer",
+          "points": 30,
+          "level": "HIGH",
+          "explanation": "Cookie security vulnerability: Secure flag missing: cookie can be sent over unencrypted connections and sniffed; HttpOnly missing: JavaScript can read the cookie, so cross-site scripting could steal it; SameSite None: cookie is sent on cross-site requests, which helps cross-site request forgery",
+          "recommendation": "Configure session cookies with: Secure=true, HttpOnly=true, SameSite=Strict or Lax"
+        }
+      ]
+    },
+    {
+      "sessionId": "sess_0001",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0002",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0003",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0004",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0005",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0006",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0007",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0008",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0009",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0010",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0011",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0012",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0013",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0014",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0015",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    },
+    {
+      "sessionId": "sess_0016",
+      "rawPoints": 0,
+      "totalPoints": 0,
+      "level": "LOW",
+      "cookieGrade": "A",
+      "cookieFixes": [
+      ],
+      "alerts": [
+      ]
+    }
+  ]
+}
