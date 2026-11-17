@@ -1,0 +1,4 @@
+const status=document.getElementById('shop-status');let authenticated=false;
+async function browse(product){try{const response=await fetch('/api/profile'+(product?'?item='+encodeURIComponent(product):''));if(!response.ok){authenticated=false;status.textContent='Sign in through the security dashboard, then reload this page.';return;}const data=await response.json();authenticated=true;status.textContent='Signed in as '+data.user+' · Connected · Last request '+new Date().toLocaleTimeString();if(product){const panel=document.getElementById('product-detail');panel.hidden=false;panel.textContent=product+' — Item details loaded through the protected website API. Your request is visible in the security dashboard.';}}catch(e){status.textContent='Connection interrupted. Retrying…';}}
+for(const button of document.querySelectorAll('[data-product]'))button.onclick=()=>browse(button.dataset.product);
+browse();setInterval(()=>{if(authenticated&&!document.hidden)browse();},5000);

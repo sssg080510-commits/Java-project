@@ -5,3 +5,8 @@ target/
 .vscode/
 tools/
 
+
+# Local website runtime state
+data/web.db*
+__pycache__/
+.DS_Store

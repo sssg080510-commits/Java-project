@@ -149,3 +149,104 @@ Each milestone includes a dedicated demonstration class:
 
 ## License
 Educational Coursework Project.
+
+## Working website and local security lab
+
+The Java web entry point connects real authentication and protected HTTP activity to
+CookieTrace's existing rule analyzers. It includes a responsive account-scoped dashboard,
+SQLite users and event history, PBKDF2 password hashing, one-hour random sessions,
+HttpOnly/SameSite=Strict cookies, CSRF checks, and login attempt limits. Raw session
+cookies are never written to the database. Sessions are held in memory and end on restart;
+accounts and observed events persist in `data/web.db`, separate from the coursework database.
+
+### Start locally
+
+Install Java 17+ and Maven, then run:
+
+```sh
+./scripts/run-web.sh
+```
+
+Open **http://127.0.0.1:8080**, create an account, and select **Open monitored website**. Requests from that storefront are captured automatically.
+The dashboard updates every second. The configured monitor sees the latest 500 website events; other accounts see only their own events.
+Dashboard polling does not generate activity events; authenticated website API requests do. Sign out invalidates the server session.
+
+Docker alternative:
+
+```sh
+docker compose up --build
+```
+
+Docker binds the published port to loopback and stores data in the `web-data` volume.
+
+### Run security scenarios
+
+Start with lab fixtures enabled to exercise all scenarios:
+
+```sh
+COOKIETRACE_ADMIN=your_username COOKIETRACE_LAB=true ./scripts/run-web.sh
+# Or: COOKIETRACE_ADMIN=your_username COOKIETRACE_LAB=true docker compose up --build
+```
+
+In a second terminal:
+
+```sh
+python3 scripts/security_scenarios.py
+```
+
+The script creates random dedicated test accounts, copies only its own test session cookie,
+changes client identity, performs near-concurrent requests with Chennai/London fixtures,
+and sends a bounded burst of 20 requests. It asserts exact detector names, HIGH risk for
+the combined scenario, account isolation, CSRF rejection, logout invalidation, and fresh
+login with retained history. It never extracts browser cookies or targets external websites.
+It only accepts `http://127.0.0.1:<port>` and disables HTTP proxies.
+
+Run the same script with lab mode off to verify that fixture headers are ignored. Test
+accounts and events remain available for inspection; repeated test runs create new accounts.
+Normal browsing should have no behavior alerts. Local HTTP intentionally produces a
+cookie-security finding because `Secure` is off.
+
+### Configuration and scope
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `8080` | Listening port |
+| `BIND_ADDRESS` | `127.0.0.1` | Server bind address; Docker uses `0.0.0.0` inside its container |
+| `COOKIETRACE_DB` | `data/web.db` | Separate website SQLite database |
+| `COOKIETRACE_ADMIN` | empty | Existing username allowed to monitor all website sessions |
+| `COOKIETRACE_LAB` | `false` | Explicitly enable labelled synthetic location fixtures |
+| `COOKIE_SECURE` | `false` | Set `true` when served through HTTPS |
+
+This is a working local security demo, not a publicly deployed production service.
+`X-Forwarded-For` is ignored; source addresses come from the socket. A future proxy
+integration needs an explicit trusted-proxy configuration. No GeoIP provider is configured:
+normal requests have unknown locations and do not participate in impossible-travel checks.
+Lab fixtures use documentation-only IP addresses and are labelled in the UI. The legacy
+IPv4 model receives a deterministic IPv4-shaped digest for IPv6 comparison; these are not
+actual geolocated IPv4 addresses. Live scoring uses deterministic rules, including a
+20-request/10-second burst signal. The existing ML benchmark remains separate because
+synthetic benchmark training does not establish a reliable live baseline.
+
+The dashboard groups by hashed session ID and uses a bounded recent-event window;
+older evidence remains in SQLite. An alert is an investigation signal, not proof of cookie
+theft. Automatic risk-based revocation, production scaling, TLS termination, retention,
+account recovery, and deployment remain future work. Logout revocation works now.
+
+### Live monitoring workflow
+
+Set `COOKIETRACE_ADMIN` to your account username when starting the server, then sign in.
+Select **Open monitored website** to open the connected storefront in another tab. Its
+protected API requests are captured automatically, including item views and a five-second
+refresh while the tab is visible. The dashboard polls server data every second and flags
+high-risk sessions with an alert banner and expanded detector evidence.
+
+In lab mode the monitor can select **Run security test**. A background worker creates a
+separate random test account and sends genuine localhost HTTP requests: normal browsing,
+cookie replay with a changed client identity, labelled location fixtures, and a bounded
+burst. Watch the stage text, request feed, and flagged session update. There is no need to
+run a terminal script for this flow. Ordinary accounts cannot start the test or read the
+website-wide event stream. The Python scenarios remain available for regression checks.
+
+This monitors the included website, not unrelated websites. Connecting another application
+requires server-side instrumentation and authenticated event ingestion. Location fixtures
+remain simulations; browser changes and request bursts are measured from actual requests.

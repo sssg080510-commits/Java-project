@@ -1,0 +1,13 @@
+services:
+  website:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      COOKIETRACE_LAB: ${COOKIETRACE_LAB:-false}
+      COOKIETRACE_ADMIN: ${COOKIETRACE_ADMIN:-}
+      COOKIE_SECURE: "false"
+    volumes:
+      - web-data:/app/data
+volumes:
+  web-data:
