@@ -17,6 +17,9 @@ import java.util.concurrent.*;
 
 /** Live website monitoring with explicit administrator access and labelled lab fixtures. */
 public final class WebServer {
+    private static final String NOTE_PATH = "/api/note";
+    private static final String DEMO_NOTE_PATH = "/api/note-demo";
+    private static final String DEMO_NOTE = "Demo recovery phrase: BLUE ORCHID";
     private final Connection db;
     private final String admin = System.getenv().getOrDefault("COOKIETRACE_ADMIN", "");
     private final LabScenario scenario = new LabScenario();
@@ -30,6 +33,10 @@ public final class WebServer {
     private static String hash(String value) throws Exception {
         return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8)));
     }
+    private static Session resolveSession(Map<String, Session> store, String id) {
+        Session session = store.get(id);
+        return session != null && session.expires > System.currentTimeMillis() ? session : null;
+    }
     private static byte[] password(String value, byte[] salt) throws Exception {
         return SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(
             new PBEKeySpec(value.toCharArray(), salt, 210000, 256)).getEncoded();
@@ -41,8 +48,10 @@ public final class WebServer {
         try (Statement s = db.createStatement()) {
             s.execute("PRAGMA journal_mode=WAL");
             s.execute("CREATE TABLE IF NOT EXISTS users (name TEXT PRIMARY KEY, salt BLOB NOT NULL, password BLOB NOT NULL)");
+            s.execute("CREATE TABLE IF NOT EXISTS private_notes (user TEXT PRIMARY KEY, note TEXT NOT NULL)");
             s.execute("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, session TEXT, user TEXT, time TEXT, ip TEXT, ua TEXT, location TEXT, simulated INTEGER, secure INTEGER, path TEXT)");
             s.execute("CREATE INDEX IF NOT EXISTS events_user ON events(user,id)");
+            s.execute("CREATE INDEX IF NOT EXISTS events_session ON events(session,id)");
         }
     }
     public static void main(String[] args) throws Exception {
@@ -71,17 +80,33 @@ public final class WebServer {
             sessions.values().removeIf(s -> s.expires < System.currentTimeMillis());
             String raw = cookie(x);
             String id = hash(raw);
-            Session s = sessions.get(id);
+            Session s = resolveSession(sessions, id);
             if (s == null) { send(x,401,"{\"error\":\"Please sign in\"}"); return; }
-            if (!Set.of("/api/me", "/api/dashboard", "/api/demo").contains(path)) record(x,id,s.user);
             if (x.getRequestMethod().equals("POST") && !s.csrf.equals(x.getRequestHeaders().getFirst("X-CSRF-Token"))) {
                 send(x,403,"{\"error\":\"Invalid CSRF token\"}"); return;
+            }
+            if (!Set.of("/api/me", "/api/dashboard", "/api/demo", "/api/session", DEMO_NOTE_PATH).contains(path)) record(x,id,s.user);
+            if (path.equals(NOTE_PATH)) {
+                privateNote(x, s.user);
+                return;
+            }
+            if (path.equals(DEMO_NOTE_PATH) && x.getRequestMethod().equals("POST")) {
+                if (!lab || !s.user.equals(admin)) {
+                    send(x,403,"{\"error\":\"Administrator and lab mode required\"}");
+                    return;
+                }
+                runNoteDemo(x);
+                return;
             }
             if (path.equals("/api/logout") && x.getRequestMethod().equals("POST")) {
                 sessions.remove(id); setCookie(x,"",0); send(x,200,"{\"ok\":true}"); return;
             }
             if (path.equals("/api/me") && x.getRequestMethod().equals("GET")) {
-                send(x,200,"{\"user\":"+q(s.user)+",\"admin\":"+s.user.equals(admin)+",\"csrf\":"+q(s.csrf)+",\"lab\":"+lab+",\"secureCookie\":"+secure+"}"); return;
+                send(x,200,"{\"user\":"+q(s.user)+",\"sessionId\":"+q(id)+",\"admin\":"+s.user.equals(admin)+",\"csrf\":"+q(s.csrf)+",\"lab\":"+lab+",\"secureCookie\":"+secure+"}"); return;
+            }
+            if (path.equals("/api/session") && x.getRequestMethod().equals("GET")) {
+                lookupSession(x, s.user);
+                return;
             }
             if (path.equals("/api/profile") && x.getRequestMethod().equals("GET")) {
                 send(x,200,"{\"user\":"+q(s.user)+",\"ok\":true}"); return;
@@ -160,6 +185,115 @@ public final class WebServer {
             p.setString(6,fixture); p.setInt(7,fixture.isEmpty()?0:1); p.setInt(8,secure?1:0); p.setString(9,x.getRequestURI().getPath()); p.executeUpdate();
         }
     }
+    private void lookupSession(HttpExchange x, String viewer) throws Exception {
+        String query = Objects.toString(x.getRequestURI().getRawQuery(), "");
+        if (!query.matches("id=[a-fA-F0-9]{64}")) {
+            send(x, 400, "{\"error\":\"Enter the full 64-character session ID\"}");
+            return;
+        }
+        String id = query.substring(3).toLowerCase(Locale.ROOT);
+        try (PreparedStatement p = db.prepareStatement(
+                "SELECT user,time FROM events WHERE session=? AND (user=? OR ?=1) ORDER BY id DESC LIMIT 1")) {
+            p.setString(1, id);
+            p.setString(2, viewer);
+            p.setInt(3, viewer.equals(admin) ? 1 : 0);
+            try (ResultSet r = p.executeQuery()) {
+                if (r.next()) {
+                    Session active = sessions.get(id);
+                    send(x, 200, "{\"user\":" + q(r.getString("user"))
+                            + ",\"active\":" + (active != null && active.expires > System.currentTimeMillis())
+                            + ",\"lastSeen\":" + q(r.getString("time")) + "}");
+                    return;
+                }
+            }
+        }
+        send(x, 404, "{\"error\":\"Session not found\"}");
+    }
+    private void privateNote(HttpExchange x, String user) throws Exception {
+        if (x.getRequestMethod().equals("POST")) {
+            byte[] body = x.getRequestBody().readNBytes(4097);
+            if (body.length > 4096) {
+                send(x, 413, "{\"error\":\"Note must be at most 4096 bytes\"}");
+                return;
+            }
+            try (PreparedStatement p = db.prepareStatement(
+                    "INSERT INTO private_notes(user,note) VALUES(?,?) ON CONFLICT(user) DO UPDATE SET note=excluded.note")) {
+                p.setString(1, user);
+                p.setString(2, new String(body, StandardCharsets.UTF_8));
+                p.executeUpdate();
+            }
+            send(x, 200, "{\"ok\":true}");
+            return;
+        }
+        send(x, 200, "{\"note\":" + q(readNote(user)) + "}");
+    }
+
+    private String readNote(String user) throws SQLException {
+        try (PreparedStatement p = db.prepareStatement("SELECT note FROM private_notes WHERE user=?")) {
+            p.setString(1, user);
+            try (ResultSet r = p.executeQuery()) {
+                return r.next() ? r.getString("note") : "";
+            }
+        }
+    }
+
+    private void runNoteDemo(HttpExchange x) throws Exception {
+        String scenario = new String(x.getRequestBody().readNBytes(32), StandardCharsets.UTF_8);
+        if (!Set.of("normal", "browser", "concurrent", "travel", "burst", "combined").contains(scenario)) {
+            send(x, 400, "{\"error\":\"Choose a demo scenario\"}");
+            return;
+        }
+        boolean travel = Set.of("travel", "combined").contains(scenario);
+        boolean newIp = travel || scenario.equals("concurrent");
+        boolean newBrowser = Set.of("browser", "combined").contains(scenario);
+        int count = Set.of("burst", "combined").contains(scenario) ? 20 : 2;
+        String fixtureCredential = token();
+        String id = hash(fixtureCredential);
+        String user = "lab-note-" + id.substring(0, 16);
+        Session fixtureSession = new Session(user, token(), System.currentTimeMillis() + 60_000);
+        Map<String, Session> fixtureSessions = Map.of(id, fixtureSession);
+        Session resolved = resolveSession(fixtureSessions, hash(fixtureCredential));
+        if (resolved == null) {
+            send(x, 401, "{\"error\":\"Demo session expired\"}");
+            return;
+        }
+        String exposedNote;
+        Instant end = Instant.now();
+        try (PreparedStatement p = db.prepareStatement(
+                "INSERT INTO events(session,user,time,ip,ua,location,simulated,secure,path) VALUES(?,?,?,?,?,?,1,1,?)");
+             PreparedStatement save = db.prepareStatement("INSERT INTO private_notes(user,note) VALUES(?,?)");
+             PreparedStatement clear = db.prepareStatement("DELETE FROM private_notes WHERE user=?")) {
+            db.setAutoCommit(false);
+            try {
+                save.setString(1, user);
+                save.setString(2, DEMO_NOTE);
+                save.executeUpdate();
+                exposedNote = readNote(resolved.user);
+                clear.setString(1, user);
+                clear.executeUpdate();
+                for (int i = 0; i < count; i++) {
+                    boolean changed = i > 0;
+                    p.setString(1, id);
+                    p.setString(2, user);
+                    p.setString(3, end.minusMillis((count - i - 1) * 400L).toString());
+                    p.setString(4, changed && newIp ? "198.51.100.20" : "192.0.2.10");
+                    p.setString(5, changed && newBrowser ? "Demo Firefox" : "Demo Chrome");
+                    p.setString(6, travel ? (changed ? "london" : "chennai") : "");
+                    p.setString(7, NOTE_PATH);
+                    p.addBatch();
+                }
+                p.executeBatch();
+                db.commit();
+            } catch (SQLException e) {
+                db.rollback();
+                throw e;
+            } finally {
+                db.setAutoCommit(true);
+            }
+        }
+        send(x, 200, "{\"user\":" + q(resolved.user) + ",\"id\":" + q(id) + ",\"note\":" + q(exposedNote) + "}");
+    }
+
     private String dashboard(String user) throws Exception {
         List<SessionEvent> events=new ArrayList<>(); List<String> timeline=new ArrayList<>();
         Map<String,String> owners=new HashMap<>();

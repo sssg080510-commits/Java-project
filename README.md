@@ -171,6 +171,12 @@ Open **http://127.0.0.1:8080**, create an account, and select **Open monitored w
 The dashboard updates every second. The configured monitor sees the latest 500 website events; other accounts see only their own events.
 Dashboard polling does not generate activity events; authenticated website API requests do. Sign out invalidates the server session.
 
+For a demo, open **Session intelligence** and select **Look up** with your current
+session ID already filled in. You can also paste a full hashed session ID or select
+**Use session ID** on an observed session. The lookup shows the username, whether
+the session is active, and its last recorded request. Signed-in users can look up
+their own sessions, and the configured monitor can look up any recorded session.
+
 Docker alternative:
 
 ```sh
@@ -180,6 +186,23 @@ docker compose up --build
 Docker binds the published port to loopback and stores data in the `web-data` volume.
 
 ### Run security scenarios
+
+For the private-note demo, sign in and open **Open monitored website**. Under
+**Private note**, save fictional information and select **Open saved note**.
+The request feed shows `/api/note` activity without including the note content.
+Notes persist per account in the local SQLite database.
+
+With lab mode enabled and a monitor signed in, choose a scenario under
+**Private note access demo** and select **Run scenario**. Each run adds an
+isolated set of labeled synthetic requests for a fictional account. The demo
+resolves an internal test credential using the same session lookup as live
+requests, then reads a temporary fictional note using the regular note query.
+The test credential stays in an isolated store for that run. The panel shows
+the resolved account and returned note, and the matching
+session appears first under **Session intelligence**. Try normal browsing,
+browser change, overlapping IPs, impossible travel, request burst, and combined
+signals. Combined signals reach high risk. Use **Sign out** in the monitored
+website to end your real session and clear the note from the page.
 
 Start with lab fixtures enabled to exercise all scenarios:
 

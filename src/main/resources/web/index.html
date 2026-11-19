@@ -3,4 +3,32 @@
 <main><header><span>Workspace / Session observatory</span><span id="connection">● Local workspace</span></header><section class="hero"><p class="eyebrow">SESSION INTELLIGENCE</p><h1>Live traffic.<br>Visible threats.</h1><p>Monitor requests from the connected website.<br>Suspicious sessions are flagged automatically as traffic arrives.</p></section>
 <p id="message" role="status" aria-live="polite"></p>
 <section id="auth" class="panel auth"><div><p class="eyebrow">YOUR WORKSPACE</p><h2>Start a secure session</h2><p>Create an account or sign in to explore your session telemetry.</p></div><form id="auth-form"><label>Username<input name="username" autocomplete="username" required pattern="[a-zA-Z0-9_]{3,32}" minlength="3" maxlength="32"></label><label>Password<input name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="256"></label><div class="actions"><button type="submit">Sign in ↗</button><button type="button" class="secondary" id="register">Create account</button></div><small>Passwords require at least 12 characters.</small></form></section>
-<div id="workspace" hidden><section class="workspace-title" id="overview"><div><h2>Session overview</h2><p id="identity"></p></div><div class="actions"><a class="button-link" href="/shop" target="_blank" rel="noopener">Open monitored website ↗</a><button id="demo" hidden>Run security test</button><button class="secondary" id="logout">Sign out</button></div></section><p id="mode" class="notice"></p><section id="threat-banner" class="threat-banner" role="status">Waiting for traffic</section><p id="scenario" role="status"></p><section class="stats"><article><span>OBSERVED SESSIONS</span><strong id="session-count">0</strong><small>Latest 500 website events</small></article><article><span>HIGH RISK</span><strong id="high-count">0</strong><small>Scores of 60 and above</small></article><article><span>REQUEST EVENTS</span><strong id="event-count">0</strong><small>Captured on the server</small></article></section><section class="panel" id="sessions"><div class="section-title"><h2>Session intelligence</h2><span class="pill">Live · updates every second</span></div><div id="session-list"></div></section><section class="panel" id="activity"><div class="section-title"><h2>Recent request activity</h2><span>Newest first</span></div><div class="table-wrap"><table><thead><tr><th>Account</th><th>Time</th><th>Source IP</th><th>Route</th><th>Browser / client</th><th>Evidence source</th></tr></thead><tbody id="timeline"></tbody></table></div></section></div><footer>CookieTrace / Session observatory <span>Rule-based live detection · automatic request capture</span></footer></main></body></html>
+<div id="workspace" hidden><section class="workspace-title" id="overview"><div><h2>Session overview</h2><p id="identity"></p></div><div class="actions"><a class="button-link" href="/shop" target="_blank" rel="noopener">Open monitored website ↗</a><button id="demo" hidden>Run security test</button><button class="secondary" id="logout">Sign out</button></div></section><p id="mode" class="notice"></p><section id="threat-banner" class="threat-banner" role="status">Waiting for traffic</section><p id="scenario" role="status"></p><section class="panel" id="note-demo" hidden>
+<h2>Private note access demo</h2>
+<p>Each scenario adds labeled synthetic requests for a fictional account.</p>
+<form id="note-demo-form">
+<label for="note-scenario">Scenario</label>
+<div class="actions">
+<select id="note-scenario">
+<option value="normal">Normal browsing</option>
+<option value="browser">Browser change</option>
+<option value="concurrent">Overlapping access from different IPs</option>
+<option value="travel">Impossible travel</option>
+<option value="burst">Request burst</option>
+<option value="combined">Combined signals</option>
+</select>
+<button type="submit">Run scenario</button>
+</div>
+</form>
+<p id="note-demo-result" role="status"></p>
+<a href="#sessions">View session evidence</a>
+</section><section class="stats"><article><span>OBSERVED SESSIONS</span><strong id="session-count">0</strong><small>Latest 500 website events</small></article><article><span>HIGH RISK</span><strong id="high-count">0</strong><small>Scores of 60 and above</small></article><article><span>REQUEST EVENTS</span><strong id="event-count">0</strong><small>Captured on the server</small></article></section><section class="panel" id="sessions"><div class="section-title"><h2>Session intelligence</h2><span class="pill">Live · updates every second</span></div><form id="session-lookup">
+<label for="lookup-id">Look up an account by session ID</label>
+<div class="actions">
+<input id="lookup-id" required pattern="[a-fA-F0-9]{64}" maxlength="64" spellcheck="false" autocomplete="off" title="Enter the full 64-character session ID">
+<button type="submit">Look up</button>
+<button type="button" class="secondary" id="use-current-session">Use my session ID</button>
+</div>
+<p id="lookup-result" role="status"></p>
+</form>
+<div id="session-list"></div></section><section class="panel" id="activity"><div class="section-title"><h2>Recent request activity</h2><span>Newest first</span></div><div class="table-wrap"><table><thead><tr><th>Account</th><th>Time</th><th>Source IP</th><th>Route</th><th>Browser / client</th><th>Evidence source</th></tr></thead><tbody id="timeline"></tbody></table></div></section></div><footer>CookieTrace / Session observatory <span>Rule-based live detection · automatic request capture</span></footer></main></body></html>
